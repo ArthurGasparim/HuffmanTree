@@ -1,4 +1,5 @@
 typedef struct palavraFreq{
+	int code;
 	char texto[500];
 	int freq;
 	struct palavraFreq *prox;
@@ -38,19 +39,25 @@ void inserirOrd(PalavraFreq **PF, Palavra *P,char texto[50]){
 }
 
 void PrepararFreq(PalavraFreq **PF, Palavra *P){
-	PalavraFreq *NC;
+	PalavraFreq *AuxPF;
+	int count = 0;
 	Palavra *Aux = P;
 	while(Aux != NULL){
 		if(!isInPF(*PF,Aux))
 			inserirOrd(&(*PF),P,Aux -> texto);
 		Aux = Aux -> prox;
 	}
+	AuxPF = *PF;
+	while(AuxPF != NULL){
+		AuxPF -> code = count++;
+		AuxPF = AuxPF -> prox;
+	}
 	
 }
 
 void exibeWordsPF(PalavraFreq *P){
 	while(P != NULL){
-		printf("%s, %d ", P -> texto,P->freq);
+		printf("%d - %s - %d\n",P -> code, P -> texto,P->freq);
 		P = P -> prox;
 	}
 }

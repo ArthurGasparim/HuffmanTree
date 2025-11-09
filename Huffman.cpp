@@ -4,6 +4,9 @@
 #include <conio2.h>
 #include "TadPalavra.h"
 #include "TadPalavraFreq.h"
+#include "TadTree.h"
+
+
 struct bits
 {
 	unsigned char b7:1;
@@ -22,10 +25,11 @@ struct bits
 
 int main(){
 	char frase[5000], frase2[5000];
-	int TL=32,i,pos1,pos2;
+	int i,pos1,pos2;
 	unsigned char vet2[32];
 	FILE *ptrArq = fopen("codificacao.dat","wb");
 	struct bits uval;
+	TreeList *TL;
 	Palavra *P = NULL;
 	PalavraFreq *PF = NULL;
 	gets(frase);
@@ -47,10 +51,11 @@ int main(){
 	}
 	frase2[pos2] = '\0';
 	insertWord(&P, frase2);
-	exibeWords(P);
 	PrepararFreq(&PF,P);
-	printf("\n");
 	exibeWordsPF(PF);
+	getch();
+	TL = makeTreeList(PF);
+	ExibeTL(TL);
 	getch();
 	/*for(i=0;i<32;){
 		uval.b0 = vet[i++];
