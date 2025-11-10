@@ -47,15 +47,41 @@ TreeList* remove(TreeList **TL){
 	return Aux;
 }
 
+int size(TreeList *TL){
+	int cont = 0;
+	while(TL != NULL)
+		{
+			cont++;
+			TL = TL -> prox;	
+		}
+	return cont;
+}
+
+void exibe(Tree* raiz, int x, int y, int dist){
+	
+	if(raiz != NULL){
+		gotoxy(y,x);
+			printf("[%d - %d] -> ",raiz -> code, raiz -> freq);
+		gotoxy(y-dist/1.2,x+2);
+		printf("/");
+		gotoxy(y+dist/1.2,x+2);
+		printf("\\");
+		
+		exibe(raiz -> esq, x+4, y - dist, dist/1.5);
+		exibe(raiz -> dir, x + 4,y + dist,dist/1.5);
+	}
+}
+
 void MakeTree(TreeList **TL){
 	TreeList *T1,*T2, NTL;
 	Tree *NT;
 	
-	while(sizeof(*TL) >1){
+	while(size(*TL) > 1){
 		T1 = remove(&(*TL));
 		T2 = remove(&(*TL));
 		NT = (Tree *)malloc(sizeof(Tree));
 		NT -> freq = T1 -> tree -> freq + T2 -> tree -> freq;
+		NT -> code = -1;
 		NT -> esq = T1 -> tree;
 		NT -> dir = T2 -> tree;
 		inserirOrdTL(&(*TL),NT);

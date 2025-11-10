@@ -56,7 +56,12 @@ int main(){
 	getch();
 	TL = makeTreeList(PF);
 	ExibeTL(TL);
+	MakeTree(&TL);
 	getch();
+	printf("\n");
+	ExibeTL(TL);
+	printf("\n");
+	exibe(TL -> tree,20,60,25);
 	/*for(i=0;i<32;){
 		uval.b0 = vet[i++];
 		uval.b1 = vet[i++];
