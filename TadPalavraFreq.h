@@ -21,14 +21,14 @@ void inserirOrd(PalavraFreq **PF, Palavra *P,char texto[50]){
 	if(*PF == NULL)
 		*PF = NC;
 	else{
-		if(NC -> freq > (*PF) -> freq){
+		if(NC -> freq < (*PF) -> freq){
 			NC -> prox = *PF;
 			*PF = NC;
 		}
 		else{
 			Aux = (*PF) -> prox;
 			Ant = *PF;
-			while(Aux != NULL && Aux -> freq > NC -> freq){
+			while(Aux != NULL && Aux -> freq < NC -> freq){
 				Ant = Aux;
 				Aux = Aux -> prox;
 			}

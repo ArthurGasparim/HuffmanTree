@@ -15,14 +15,14 @@ void inserirOrdTL(TreeList **TL, Tree *T){
 	if(*TL == NULL)
 		*TL = NC;
 	else{
-		if(NC -> tree -> freq > (*TL) -> tree -> freq){
+		if(NC -> tree -> freq < (*TL) -> tree -> freq){
 			NC -> prox = *TL;
 			*TL = NC;
 		}
 		else{
 			Aux = (*TL) -> prox;
 			Ant = *TL;
-			while(Aux != NULL && Aux -> tree -> freq > NC -> tree -> freq){
+			while(Aux != NULL && Aux -> tree -> freq < NC -> tree -> freq){
 				Ant = Aux;
 				Aux = Aux -> prox;
 			}
@@ -38,6 +38,30 @@ void ExibeTL(TreeList *TL){
 		TL = TL -> prox;
 		
 	}
+}
+
+TreeList* remove(TreeList **TL){
+	TreeList *Aux;
+	Aux = *TL;
+	*TL = (*TL) -> prox;
+	return Aux;
+}
+
+void MakeTree(TreeList **TL){
+	TreeList *T1,*T2, NTL;
+	Tree *NT;
+	
+	while(sizeof(*TL) >1){
+		T1 = remove(&(*TL));
+		T2 = remove(&(*TL));
+		NT = (Tree *)malloc(sizeof(Tree));
+		NT -> freq = T1 -> tree -> freq + T2 -> tree -> freq;
+		NT -> esq = T1 -> tree;
+		NT -> dir = T2 -> tree;
+		inserirOrdTL(&(*TL),NT);
+	}
+	
+	
 }
 
 TreeList *makeTreeList(PalavraFreq *PF){
