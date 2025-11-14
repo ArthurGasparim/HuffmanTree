@@ -103,3 +103,36 @@ TreeList *makeTreeList(PalavraFreq *PF){
 	}
 	return TL;
 }
+
+typedef struct pilhaTree{
+	Tree *tree;
+	struct pilhaInt *prox;
+} PilhaT;
+
+Tree *POPT(PilhaT **P){
+	PilhaT *Aux;
+	Aux = *P;
+	*P = (*P) -> prox;
+	return Aux -> tree;
+}
+
+void PUSHT(PilhaT **P, Tree *T){
+	PilhaT *NC = (PilhaT*)malloc(sizeof(PilhaT));
+	NC -> valor = i;
+	NC -> prox = NULL;
+	if(*P == NULL ){
+		*P = NC;
+	}
+	else{
+		NC -> prox = *P;
+		*P = NC;
+	}
+}
+
+void initT(PilhaT **P){
+	*P = NULL;
+}
+
+char isEmptyT(PilhaT *P){
+	return P == NULL;
+}

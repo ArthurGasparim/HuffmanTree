@@ -2,10 +2,12 @@
 #include<stdlib.h>
 #include <string.h>
 #include <conio2.h>
+
+#include "TadPilhaInt.h"
 #include "TadPalavra.h"
 #include "TadPalavraFreq.h"
 #include "TadTree.h"
-
+#include "TadTabela.h"
 
 struct bits
 {
@@ -27,10 +29,12 @@ int main(){
 	char frase[5000], frase2[5000];
 	int i,pos1,pos2;
 	unsigned char vet2[32];
+	Pilha *PI;
 	FILE *ptrArq = fopen("codificacao.dat","wb");
 	struct bits uval;
 	TreeList *TL;
 	Palavra *P = NULL;
+	init(&PI);
 	PalavraFreq *PF = NULL;
 	gets(frase);
 	pos1 = pos2 = 0;
@@ -62,6 +66,10 @@ int main(){
 	ExibeTL(TL);
 	printf("\n");
 	exibe(TL -> tree,20,60,25);
+	system("cls");
+	for(i = 0; i < 5; i++)
+		PUSH(&PI,i);
+	exibeP(PI);
 	/*for(i=0;i<32;){
 		uval.b0 = vet[i++];
 		uval.b1 = vet[i++];
