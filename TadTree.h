@@ -8,6 +8,15 @@ typedef struct treeList{
 	struct treeList *prox;
 }TreeList;
 
+void ExcluiTree(Tree *T){
+	if(T !=  NULL){		
+	ExcluiTree(T->esq);
+	ExcluiTree(T->esq);
+	free(&T);
+	}
+
+}
+
 void inserirOrdTL(TreeList **TL, Tree *T){
 	TreeList *Ant,*Aux,*NC = (TreeList *)malloc(sizeof(TreeList));
 	NC -> prox = NULL;
@@ -40,6 +49,8 @@ void ExibeTL(TreeList *TL){
 	}
 }
 
+
+
 TreeList* remove(TreeList **TL){
 	TreeList *Aux;
 	Aux = *TL;
@@ -56,6 +67,29 @@ int size(TreeList *TL){
 		}
 	return cont;
 }
+
+void exibeh(Tree *A){
+    static int n = -1;
+    if( A == NULL ) return;
+    n++;
+    exibeh(A->dir);
+    for(int i=0; i<5*n; i++) printf(" ");
+    printf("(%d,%d)\n", A->code, A->freq);
+    exibeh(A->esq);
+    n--;
+}
+
+void exibeh2(Tree *A){
+    static int n = -1;
+    if( A == NULL ) return;
+    n++;
+    exibeh2(A->dir);
+    for(int i=0; i<5*n; i++) printf(" ");
+    printf("(%d)\n", A->code);
+    exibeh2(A->esq);
+    n--;
+}
+
 
 void exibe(Tree* raiz, int x, int y, int dist){
 	
@@ -106,7 +140,7 @@ TreeList *makeTreeList(PalavraFreq *PF){
 
 typedef struct pilhaTree{
 	Tree *tree;
-	struct pilhaInt *prox;
+	struct pilhaTree *prox;
 } PilhaT;
 
 Tree *POPT(PilhaT **P){
@@ -118,7 +152,7 @@ Tree *POPT(PilhaT **P){
 
 void PUSHT(PilhaT **P, Tree *T){
 	PilhaT *NC = (PilhaT*)malloc(sizeof(PilhaT));
-	NC -> valor = i;
+	NC -> tree = T;
 	NC -> prox = NULL;
 	if(*P == NULL ){
 		*P = NC;

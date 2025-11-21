@@ -5,7 +5,13 @@ typedef struct palavraFreq{
 	struct palavraFreq *prox;
 }PalavraFreq;
 
+void ExcluiPalavraFreq(PalavraFreq *T){
+	if(T !=  NULL){		
+		ExcluiPalavraFreq(T->prox);
+		free(&T);
+	}
 
+}
 
 char isInPF(PalavraFreq *PF, Palavra *P){
 	while(PF != NULL && strcmp(PF -> texto,P -> texto))
@@ -36,6 +42,13 @@ void inserirOrd(PalavraFreq **PF, Palavra *P,char texto[50]){
 			Ant -> prox = NC;
 		}
 	}
+}
+
+char *retornaTexto(int code, PalavraFreq *PF){
+	while(PF != NULL && PF -> code != code)
+		PF = PF ->prox;
+	if(PF != NULL)
+		return PF -> texto;
 }
 
 void PrepararFreq(PalavraFreq **PF, Palavra *P){
